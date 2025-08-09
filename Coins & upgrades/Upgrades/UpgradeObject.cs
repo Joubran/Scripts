@@ -14,8 +14,12 @@ public class UpgradeObject : MonoBehaviour
             Debug.Log("[UpgradeObject.cs] CollectableScript not found!!!");
     }
 
-    public void UpdateGenerationAmount() 
+    public void UpdateGenerationAmount()
     {
         collectable.amountToCollect = data.generationAmount;
+        if (!collectable.IsAutoCollecting && data.autoCollectUnlockLevel > 0 && data.upgradeLevel >= data.autoCollectUnlockLevel)
+        {
+            collectable.EnableAutoCollect();
+        }
     }
 }
