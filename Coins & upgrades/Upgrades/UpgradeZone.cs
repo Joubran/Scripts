@@ -13,9 +13,14 @@ public class UpgradeZone : MonoBehaviour {
 
     void OnEnable() {
         data = upgradeManager.upgrades[upgradeIndex];
-        CoinManager.Instance.CurrencyChanged += OnCurrencyOrPriceChanged;
         data.CostChanged += OnCurrencyOrPriceChanged;
-        CheckAffordable();
+
+        if (CoinManager.Instance != null) {
+            CoinManager.Instance.CurrencyChanged += OnCurrencyOrPriceChanged;
+            CheckAffordable();
+        } else {
+            StartCoroutine(WaitForCoinManager());
+        }
     }
 
     void OnDisable() {
@@ -24,8 +29,15 @@ public class UpgradeZone : MonoBehaviour {
         if (data != null)
             data.CostChanged -= OnCurrencyOrPriceChanged;
     }
+    
+    private System.Collections.IEnumerator WaitForCoinManager() {
+        yield return new WaitUntil(() => CoinManager.Instance != null);
+        CoinManager.Instance.CurrencyChanged += OnCurrencyOrPriceChanged;
+        CheckAffordable();
+    }
 
-    private void OnCurrencyOrPriceChanged() {
+    private void OnCurrencyOrPriceChanged()
+    {
         CheckAffordable();
     }
 

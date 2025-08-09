@@ -93,7 +93,7 @@ public class UpgradeButton : MonoBehaviour
                 upgradeObject = upgradeManager.upgradeObjects[i];
             }
             else if ((upgradeData.upgradeCost.exponent == newData.upgradeCost.exponent)
-            && upgradeData.upgradeCost.mantissa > newData.upgradeCost.mantissa)
+            && upgradeData.upgradeCost.mantissa >= newData.upgradeCost.mantissa)
             {
                 upgradeData = newData;
                 upgradeObject = upgradeManager.upgradeObjects[i];
