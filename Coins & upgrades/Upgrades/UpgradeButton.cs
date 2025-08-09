@@ -35,7 +35,7 @@ public class UpgradeButton : MonoBehaviour
         if (CoinManager.Instance.UseCoins(cost))
         {
             upgradeData.Upgrade();
-            upgradeData.upgradeCost = CalculateNextCost(upgradeData);
+            upgradeData.SetUpgradeCost(CalculateNextCost(upgradeData));
             upgradeObject.UpdateGenerationAmount();
             PickCheapestUpgrade();
             UpdateUI();
