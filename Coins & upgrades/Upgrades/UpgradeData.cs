@@ -24,6 +24,7 @@ public class UpgradeData : ScriptableObject
     public CoinAmount generationAmount;
     public bool isObtained = false;
     public int upgradeLevel = 1;
+    public int autoCollectUnlockLevel = 0; // level at which auto collect starts
     public float costGrowthFactor = 1.12f;
     public float generationGrowthMultiplier = 1.06f;
 
