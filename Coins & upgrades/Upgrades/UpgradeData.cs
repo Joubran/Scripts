@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum UpgradeType {
@@ -26,10 +27,18 @@ public class UpgradeData : ScriptableObject
     public float costGrowthFactor = 1.12f;
     public float generationGrowthMultiplier = 1.06f;
 
+    public event Action<CoinAmount> CostChanged;
+
     public void Upgrade()
     {
         upgradeLevel++;
         generationAmount = CalculateNextGenerationAmount();
+    }
+
+    public void SetUpgradeCost(CoinAmount newCost)
+    {
+        upgradeCost = newCost;
+        CostChanged?.Invoke(upgradeCost);
     }
 
     public CoinAmount CalculateNextGenerationAmount()

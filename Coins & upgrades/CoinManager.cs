@@ -85,6 +85,8 @@ public class CoinManager : MonoBehaviour {
     private CoinAmount totalCoins = new CoinAmount(0d, 0);
     private CoinAmount totalEnergy = new CoinAmount(0d, 0);
 
+    public event Action CurrencyChanged;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -105,6 +107,7 @@ public class CoinManager : MonoBehaviour {
     {
         totalCoins = CoinAmount.Add(totalCoins, amount);
         UpdateUI();
+        CurrencyChanged?.Invoke();
     }
 
     public bool UseCoins(CoinAmount amount) {
@@ -113,6 +116,7 @@ public class CoinManager : MonoBehaviour {
         if (success) {
             totalCoins = newTotal;
             UpdateUI();
+            CurrencyChanged?.Invoke();
         }
         return success;
     }
@@ -130,6 +134,7 @@ public class CoinManager : MonoBehaviour {
     {
         totalEnergy = CoinAmount.Add(totalEnergy, amount);
         UpdateUI();
+        CurrencyChanged?.Invoke();
     }
 
     public bool UseEnergy(CoinAmount amount) {
@@ -138,6 +143,7 @@ public class CoinManager : MonoBehaviour {
         if (success) {
             totalEnergy = newTotal;
             UpdateUI();
+            CurrencyChanged?.Invoke();
         }
         return success;
     }
