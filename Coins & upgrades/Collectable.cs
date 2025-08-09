@@ -5,10 +5,11 @@ using System.Collections;
 public class Collectable : MonoBehaviour
 {
     [SerializeField] private CollectableType collectableType;
-    [SerializeField] private int frequency = 1; // how often does it appear after deactivating in seconds 
+    [SerializeField] private int frequency = 1; // how often does it appear after deactivating in seconds
     [SerializeField] private TMP_Text flyTextAmount;
     [SerializeField] public CoinAmount amountToCollect;
     private Animator anim;
+    private bool isAutoCollecting = false;
 
     public enum CollectableType { Exp, Energy };
 
@@ -39,10 +40,23 @@ public class Collectable : MonoBehaviour
         StartCoroutine(WaitAndActivate(frequency));
     }
 
+    public void EnableAutoCollect()
+    {
+        if (isAutoCollecting) return;
+        isAutoCollecting = true;
+        Collect();
+    }
+
+    public bool IsAutoCollecting => isAutoCollecting;
+
     private IEnumerator WaitAndActivate(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         anim.SetTrigger("Activate");
+        if (isAutoCollecting)
+        {
+            Collect();
+        }
     }
 
 }
