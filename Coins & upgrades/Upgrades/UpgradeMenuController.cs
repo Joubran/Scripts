@@ -65,7 +65,7 @@ public class UpgradeMenuController : MonoBehaviour
         if (CoinManager.Instance.UseCoins(data.upgradeCost))
         {
             data.Upgrade();
-            data.upgradeCost = CalculateNextCost(data);
+            data.SetUpgradeCost(CalculateNextCost(data));
 
             // update generation on the spawned object
             var obj = upgradeManager.upgradeObjects.Find(o => o.data == data);
